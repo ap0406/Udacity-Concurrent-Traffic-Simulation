@@ -48,7 +48,7 @@ void TrafficLight::waitForGreen()
     while(1) 
     {
         TrafficLightPhase this_phase = msgq.receive();
-        if (this_phase == green)
+        if (this_phase == TrafficLightPhase::green)
         {
             break;
         }
@@ -87,13 +87,13 @@ void TrafficLight::cycleThroughPhases()
         if(duration>=rand_num)
         {
             //TrafficLightPhase l_phase;
-            _currentPhase = (_currentPhase == red) ? green : red;
+            _currentPhase = (_currentPhase == red) ? TrafficLightPhase::green : TrafficLightPhase::red;
             //l_phase = _currentPhase;
             //msgq.send(std::move(l_phase));
             msgq.send(std::move(_currentPhase));
             rand_num = ( rand() % 2000 ) + 4000;
             t1 = std::chrono::high_resolution_clock::now();
-            std::cout << "TrafficLight# " << std::this_thread::get_id() << " " << rand_num << " " << duration << std::endl;
+            //std::cout << "TrafficLight# " << std::this_thread::get_id() << " " << rand_num << " " << duration << std::endl;
         }
 
     }
